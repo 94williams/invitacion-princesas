@@ -1,0 +1,131 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap");
+
+:root {
+  --display: "Cormorant Garamond", Georgia, serif;
+  --premium-soft: #f6edda;
+  --premium-accent: #b18c4d;
+  --premium-shadow: 0 28px 74px rgba(91,62,101,.2);
+  --premium-frame: #b18c4d;
+  --premium-radius: 8px;
+  --premium-inner-radius: 3px;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .cover-name, .celebrant {
+  font-family: var(--display);
+  text-wrap: balance;
+  letter-spacing: -.025em;
+}
+
+.cover {
+  isolation: isolate;
+}
+
+.cover::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 78% 18%, color-mix(in srgb, var(--premium-soft) 72%, transparent), transparent 52%);
+  opacity: .78;
+}
+
+.hero-art {
+  padding: 8px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--premium-accent) 42%, white);
+  border-radius: var(--premium-radius);
+  background: linear-gradient(145deg, white, var(--premium-soft) 48%, color-mix(in srgb, var(--premium-accent) 30%, white));
+  box-shadow: var(--premium-shadow), inset 0 1px 0 white;
+  animation: premium-arrive .9s cubic-bezier(.2,.75,.25,1) both;
+}
+
+.hero-art::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 8px;
+  border: 1px solid color-mix(in srgb, white 70%, transparent);
+  border-radius: calc(var(--premium-radius) - 8px);
+  pointer-events: none;
+}
+
+.hero-art img {
+  display: block;
+  overflow: hidden;
+  border-radius: var(--premium-inner-radius);
+  filter: saturate(1.06) contrast(1.025);
+  transition: filter .55s ease, transform .8s cubic-bezier(.2,.7,.2,1);
+}
+
+.hero-art:hover img {
+  filter: saturate(1.14) contrast(1.04);
+  transform: scale(1.025);
+}
+
+.photo-shell {
+  padding: 6px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--premium-accent) 34%, white);
+  border-radius: calc(var(--premium-radius) * .72);
+  background: linear-gradient(145deg, white 5%, var(--premium-soft) 100%);
+  box-shadow: 0 15px 40px color-mix(in srgb, var(--ink) 13%, transparent), inset 0 1px 0 white;
+  transition: transform .45s cubic-bezier(.2,.75,.25,1), box-shadow .45s ease;
+}
+
+.memory:hover .photo-shell,
+.photo-shell:focus-within {
+  transform: translateY(-7px) rotate(-.35deg);
+  box-shadow: 0 24px 52px color-mix(in srgb, var(--ink) 20%, transparent), inset 0 1px 0 white;
+}
+
+.photo-shell img {
+  display: block;
+  border-radius: calc(var(--premium-inner-radius) * .72);
+  filter: saturate(1.04);
+  transition: filter .5s ease, transform .75s cubic-bezier(.2,.7,.2,1);
+}
+
+.memory:hover .photo-shell img {
+  filter: saturate(1.13) contrast(1.025);
+  transform: scale(1.035);
+}
+
+.photo-caption strong {
+  font-family: var(--display);
+  letter-spacing: .01em;
+}
+
+button, .button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.button, button {
+  transition: transform .22s ease, box-shadow .28s ease, filter .28s ease;
+}
+
+.button:hover, button:not(:disabled):hover {
+  filter: brightness(1.035);
+  transform: translateY(-2px);
+}
+
+:focus-visible {
+  outline: 3px solid var(--premium-accent);
+  outline-offset: 4px;
+}
+
+@keyframes premium-arrive {
+  from { opacity: 0; transform: translateY(18px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-art { animation: none; }
+  .hero-art img, .photo-shell img, .photo-shell, .button, button { transition-duration: .01ms; }
+  .hero-art:hover img, .memory:hover .photo-shell img { transform: none; }
+}
